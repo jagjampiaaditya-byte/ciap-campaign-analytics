@@ -22,8 +22,8 @@ import analysis as A
 
 LIVE_URL = "https://ciap-campaign-analytics.streamlit.app"
 REPO_URL = "https://github.com/jagjampiaaditya-byte/ciap-campaign-analytics"
-STUDENT = "[Your name]"
-ROLL = "[Roll number]"
+STUDENT = "AADITYA JAGJAMPI"
+ROLL = "MM26GL063"
 c, u, d, LOG, QUAL = A.load()
 EX = json.loads((A.OUT / "figures" / "explanations.json").read_text())
 FIG = A.OUT / "figures"
@@ -157,7 +157,7 @@ para("Data Analytics – MGB · Project Based Learning", size=12, align=WD_ALIGN
 para("Validating a Data-Driven Campaign Approval Strategy", bold=True, size=24, align=WD_ALIGN_PARAGRAPH.CENTER, color=NAVY)
 para("Synthetic-data analysis of XYZ's Campaign Intelligence & Approval Platform (CIAP)", size=14, align=WD_ALIGN_PARAGRAPH.CENTER)
 doc.add_paragraph()
-para("Individual Submission", bold=True, size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
+para("DA Individual PBL", bold=True, size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
 para(f"{STUDENT} · {ROLL}", size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
 para("Tools: Python (pandas, NumPy, SciPy, matplotlib, seaborn, Plotly), Streamlit dashboard, Microsoft Excel", size=10, align=WD_ALIGN_PARAGRAPH.CENTER, color=RGBColor(0x52, 0x51, 0x4E))
 doc.add_paragraph()
