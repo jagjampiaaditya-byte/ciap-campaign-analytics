@@ -20,6 +20,8 @@ from docx.shared import Cm, Pt, RGBColor
 
 import analysis as A
 
+LIVE_URL = "https://ciap-campaign-analytics.streamlit.app"
+REPO_URL = "https://github.com/jagjampiaaditya-byte/ciap-campaign-analytics"
 STUDENT = "[Your name]"
 ROLL = "[Roll number]"
 c, u, d, LOG, QUAL = A.load()
@@ -158,6 +160,9 @@ doc.add_paragraph()
 para("Individual Submission", bold=True, size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
 para(f"{STUDENT} · {ROLL}", size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
 para("Tools: Python (pandas, NumPy, SciPy, matplotlib, seaborn, Plotly), Streamlit dashboard, Microsoft Excel", size=10, align=WD_ALIGN_PARAGRAPH.CENTER, color=RGBColor(0x52, 0x51, 0x4E))
+doc.add_paragraph()
+para(f"Live dashboard: {LIVE_URL}", bold=True, size=11, align=WD_ALIGN_PARAGRAPH.CENTER, color=NAVY, space_after=2)
+para(f"Source code: {REPO_URL}", size=10, align=WD_ALIGN_PARAGRAPH.CENTER)
 for _ in range(8):
     doc.add_paragraph()
 para("Deliverables: data (raw and clean CSV), Python code (5 scripts + Streamlit app), Excel calculation workbook, this report.", italic=True, size=9, align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -282,7 +287,7 @@ page_break()
 
 # ================================================================== 5 DESCRIPTIVE
 doc.add_heading("5. Descriptive analytics (Step 3)", 1)
-para("Descriptive analytics answers \"what happened?\". The interactive version of every chart is in the Streamlit dashboard (app.py), where filters by year, type, segment, category and region recalculate every number.")
+para(f"Descriptive analytics answers \"what happened?\". The interactive version of every chart is in the Streamlit dashboard (app.py, live at {LIVE_URL}), where filters by year, type, segment, category and region recalculate every number.")
 num = c[["discount_pct", "units_sold", "stock_cover_ratio", "approval_cycle_hours", "stockout_rate", "on_time_delivery_rate", "csat_score", "repeat_rate_90d", "cltv_uplift_pct", "cm_margin_pct", "roi"]]
 desc = num.describe().T
 rows = [[A.CORR_VARS.get(i, i.replace("_", " ")), f"{r['mean']:.3f}", f"{r['50%']:.3f}", f"{r['std']:.3f}", f"{r['min']:.3f}", f"{r['max']:.3f}", f"{num[i].skew():.2f}"] for i, r in desc.iterrows()]
@@ -396,6 +401,8 @@ table(TECH, ["Technique", "Stage", "Why it was used on this dataset"], [5.8, 2.4
 
 # ================================================================== APPENDIX B
 doc.add_heading("Appendix B. Files submitted and how to run them", 1)
+rich([("Live dashboard: ", True), (f"{LIVE_URL} (Streamlit Community Cloud; if it has gone to sleep, click the wake-up button and wait about 30 seconds).", False)])
+rich([("Source code: ", True), (REPO_URL, False)])
 table([["01_generate_synthetic_data.py", "Creates the three raw CSVs in data/raw (seed 42)"],
        ["02_clean_transform.py", "Cleans and transforms → data/clean, outputs/cleaning_log.csv, outputs/data_quality_summary.csv"],
        ["analysis.py", "Shared analysis functions: every chart's data and explanation"],
@@ -403,7 +410,8 @@ table([["01_generate_synthetic_data.py", "Creates the three raw CSVs in data/raw
        ["03_eda_figures.py", "Static report figures → outputs/figures"],
        ["04_build_excel.py", "Excel workbook with live formulas → outputs/CIAP_Calculations.xlsx"],
        ["05_build_report.py", "This report → outputs/CIAP_Analytics_Report.docx"],
-       ["requirements.txt / README.md", "Library list and run instructions"]],
+       ["requirements.txt / README.md", "Library list and run instructions"],
+       ["LIVE_DASHBOARD.txt / Open Live Dashboard.url", "Link to the deployed dashboard (double-click the .url file to open it)"]],
       ["File", "Purpose"], [5.5, 11.1], "Submitted files")
 para("Run order: pip install -r requirements.txt → python 01_generate_synthetic_data.py → python 02_clean_transform.py → streamlit run app.py (dashboard) → "
      "python 03_eda_figures.py → python 04_build_excel.py → python 05_build_report.py", size=9.5)

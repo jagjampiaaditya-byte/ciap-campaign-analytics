@@ -4,6 +4,9 @@
 Business strategy described and diagnosed (assignment option 1b): would a data-driven, gated campaign
 approval process launch better campaigns than XYZ's manual, department-by-department sign-off?
 
+**Live dashboard:** https://ciap-campaign-analytics.streamlit.app
+**Source code:** https://github.com/jagjampiaaditya-byte/ciap-campaign-analytics
+
 ### What to submit (maps to the assignment)
 | Requirement | File(s) |
 |---|---|

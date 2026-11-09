@@ -1,0 +1,16 @@
+XYZ CIAP - Campaign Analytics dashboard (Streamlit)
+====================================================
+
+Live dashboard (opens in any browser, no login needed):
+    https://ciap-campaign-analytics.streamlit.app
+
+Source code on GitHub:
+    https://github.com/jagjampiaaditya-byte/ciap-campaign-analytics
+
+Note: on Streamlit's free plan the app sleeps after a few days without visitors.
+If you see "This app has gone to sleep", click "Yes, get this app back up!" and
+wait about 30 seconds.
+
+Run it locally instead:
+    pip install -r requirements.txt
+    streamlit run app.py
