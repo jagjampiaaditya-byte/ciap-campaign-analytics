@@ -1,0 +1,146 @@
+{
+  "01_trend": {
+    "what": "Number of campaigns launched per quarter (bars) and the share that met their objectives (line).",
+    "insight": "Volume grows every year and peaks in Q4, but the success rate does not improve with experience: it swings between 43% (2025Q3) and 58% (2024Q1). Nov-Dec campaigns succeed 52% of the time vs 53% for the rest of the year.",
+    "action": "More campaigns are not translating into better campaigns, which shows the manual process is not learning (problem PS-06). Peak season needs the strictest feasibility checks.",
+    "title": "Campaign volume and success rate over time"
+  },
+  "02_by_type": {
+    "what": "Campaign count and success rate for each campaign type.",
+    "insight": "Free Delivery campaigns succeed most often (64%); Clearance campaigns least (26%, average discount 45%, average stockout 4.2%).",
+    "action": "High-discount, high-velocity types need tighter stock and capacity gates. This is why CIAP picks which models and rules to run by campaign type (BRD Section 10.2).",
+    "title": "Success rate by campaign type"
+  },
+  "03_roi_distribution": {
+    "what": "Distribution (histogram) of ROI across all campaigns.",
+    "insight": "Median 0.27, mean 0.51, skewness 3.62. 26% of campaigns have a negative value.",
+    "action": "The distribution is skewed with a long tail, so the analysis uses medians and robust comparisons rather than the mean alone. The negative tail is the money CIAP's finance gate (BRL-012) aims to stop.",
+    "title": "Distribution of campaign ROI"
+  },
+  "04_discount_by_type": {
+    "what": "Spread of discount depth for each campaign type (box = middle 50%, line = median, whiskers = typical range).",
+    "insight": "Clearance and Flash Sale campaigns use the deepest discounts and have the widest spread. 27% of all campaigns went above the category discount ceiling that CIAP would escalate (BRL-015).",
+    "action": "Discount depth is set case by case with no common ceiling. Category ceilings with escalation give consistency without banning deep discounts.",
+    "title": "Discount depth by campaign type"
+  },
+  "05_cycle_time": {
+    "what": "Distribution of approval cycle time (hours from proposal to launch decision), coloured by how many departments signed off.",
+    "insight": "Median approval takes 71 h, and 18% of campaigns take more than 4 days. Each extra department adds time: median 33 h with 1 sign-off vs 87 h with 5.",
+    "action": "The manual process forces a trade-off: being thorough (all five checks) is slow, and being fast means skipping checks. CIAP removes the trade-off by running all five evaluations in parallel (FR-014).",
+    "title": "Approval cycle time"
+  },
+  "06_correlation_heatmap": {
+    "what": "Pearson correlation between 15 numeric campaign variables (+1 = move together, -1 = move opposite, 0 = no linear link).",
+    "insight": "Strongest relationships: Peak rider utilisation and On-time delivery (-0.87); Discount % and Contribution margin % (-0.85); On-time delivery and CSAT (+0.71); Discount % and ROI (-0.64); Contribution margin % and ROI (+0.61).",
+    "action": "Two chains stand out. Stock cover drives stockouts, which hurt CSAT, repeat purchase and CLTV. Rider utilisation drives late deliveries, which hurt CSAT. These are exactly the operational gates CIAP enforces before launch.",
+    "title": "Correlation matrix"
+  },
+  "06b_spearman": {
+    "what": "Spearman correlation between 15 numeric campaign variables (+1 = move together, -1 = move opposite, 0 = no linear link).",
+    "insight": "Strongest relationships: Contribution margin % and ROI (+0.90); Discount % and Contribution margin % (-0.84); Peak rider utilisation and On-time delivery (-0.81); Discount % and ROI (-0.81); CLTV uplift % and Success (1/0) (+0.60).",
+    "action": "Two chains stand out. Stock cover drives stockouts, which hurt CSAT, repeat purchase and CLTV. Rider utilisation drives late deliveries, which hurt CSAT. These are exactly the operational gates CIAP enforces before launch.",
+    "title": "Spearman correlation (robustness check)"
+  },
+  "07_success_drivers": {
+    "what": "Correlation of each variable with campaign success (point-biserial correlation with the 1/0 success flag).",
+    "insight": "Most positive: CLTV uplift % (+0.59) and CSAT (+0.44). Most negative: Return rate (-0.44) and Stockout rate (-0.41).",
+    "action": "Outcome variables (CLTV, repeat rate, CSAT) naturally correlate with success. The decision levers available before launch, namely stock cover, discount depth and rider capacity, are the ones CIAP can act on.",
+    "title": "What correlates with success"
+  },
+  "08_discount_vs_demand": {
+    "what": "Each dot is a campaign: discount depth against demand per day (log scale), coloured by target segment.",
+    "insight": "Deeper discounts lift demand (correlation with log demand +0.46). The response is strongest for Discount Seekers (+0.55) and weakest for Champions (+0.26).",
+    "action": "A discount is a demand multiplier, so every extra point of discount must be matched by stock and delivery capacity. That is why CIAP tests feasibility against the upper bound of the forecast, not the average.",
+    "title": "Discount depth vs demand"
+  },
+  "09_stock_vs_stockout": {
+    "what": "Stock available at launch divided by the upper bound of the CIAP demand forecast (x-axis) against the share of campaign days out of stock (y-axis).",
+    "insight": "Clear threshold effect (Spearman -0.42). Below a cover ratio of 1.0 the average stockout rate is 13.4%; at 1.0 or above it is 1.4%. 37% of campaigns launched below 1.0.",
+    "action": "This validates rule BRL-003: requiring stock to cover the forecast upper bound removes most stockouts. The threshold sits at 1.0, as the BRD specifies.",
+    "title": "Stock cover vs stockouts"
+  },
+  "10_rider_vs_ontime": {
+    "what": "Peak-day rider utilisation (orders \u00f7 rider capacity) against on-time delivery rate.",
+    "insight": "Correlation -0.87. Campaigns that stayed under 90% utilisation delivered 96.2% on time; those above 100% only 76.2% (135 campaigns).",
+    "action": "Delivery performance holds until capacity is exhausted, then falls sharply. This supports BRL-009 (hard gate above 100%, condition inside a 10% buffer) and BRL-010.",
+    "title": "Rider capacity vs on-time delivery"
+  },
+  "11_stockout_vs_loyalty": {
+    "what": "Average CSAT, 90-day repeat rate and CLTV uplift for campaigns grouped by stockout rate.",
+    "insight": "As stockouts rise from <2% to >20%, CSAT falls from 4.45 to 3.73, repeat rate from 28% to 9% and CLTV uplift from +4.3% to -3.4%.",
+    "action": "A stockout costs twice: the sale today and customer value tomorrow (BRD Section 2). This puts a number on the CLTV argument for blocking infeasible campaigns.",
+    "title": "Stockouts vs customer outcomes"
+  },
+  "12_failure_pareto": {
+    "what": "Pareto chart of the primary reason each failed campaign missed its objectives (bars) with the cumulative share (line).",
+    "insight": "707 campaigns failed. Stockout is the biggest cause (40%), and the top two causes explain 66%. Loss-making campaigns lost $7.29M of margin in total.",
+    "action": "Most failures are operational (stock and delivery), not creative. They can be predicted before launch, which is the core claim of the CIAP strategy.",
+    "title": "Failure root causes"
+  },
+  "13_success_by_cover": {
+    "what": "Success rate and average stockout rate for campaigns grouped by stock cover ratio band.",
+    "insight": "Success rate climbs from 12% when stock covers under 60% of upper-bound demand to 62% at 1.0-1.2. Above 1.2 it does not improve further (59%).",
+    "action": "There is an optimum: enough stock to cover the upper bound, but no more. Extra cover only ties up working capital (BRL-005 / BRL-013).",
+    "title": "Success by stock cover"
+  },
+  "14_segment_discount": {
+    "what": "Success rate for each combination of target segment (rows) and discount band (columns). Darker = more successful.",
+    "insight": "Discount Seekers fail in almost every discount band (overall 11% success, average CLTV uplift -4.2%). For other segments success drops sharply once discounts pass 40%.",
+    "action": "Targeting matters as much as the offer. Campaigns aimed at Discount Seekers buy short-term volume but erode long-term value (problem PS-05, rule BRL-014).",
+    "title": "Segment \u00d7 discount diagnostic"
+  },
+  "15_forecast_accuracy": {
+    "what": "Forecast error = (forecast \u2212 actual demand) \u00f7 actual demand, by who made the forecast. Above zero = over-forecast.",
+    "insight": "Each department forecasts differently (problem PS-02). Marketing over-forecasts by a median 18% (typical error 30%). The back-tested CIAP model has a median bias of 2% and typical error of 19%.",
+    "action": "One shared, unbiased forecast with a prediction range replaces three conflicting ones (BRD Section 6, future state).",
+    "title": "Forecast accuracy by team"
+  },
+  "16_signoffs": {
+    "what": "Left: success rate by how many of the five departments signed off. Right: success rate by approval cycle time, with the average number of sign-offs in each band.",
+    "insight": "Campaigns with all 5 sign-offs succeed 61% vs 46% with 3 or fewer. Skipping the Inventory check raises the average stockout rate from 2.8% to 13.8%. Fast approvals are not better approvals: campaigns decided in under 48 h succeed 47% (average 3.0 sign-offs) vs 57% at 72-96 h (4.1 sign-offs), because speed was bought by skipping checks.",
+    "action": "The manual process forces a choice between fast and thorough. Running all five evaluations in parallel on one data snapshot gives both (FR-014, BR-013).",
+    "title": "Sign-offs and approval time"
+  },
+  "17_overrides": {
+    "what": "Campaigns launched despite a department objection (override) compared with normal launches.",
+    "insight": "119 campaigns were overridden. They succeeded 36% of the time vs 54% for the rest. Today nobody records why they were overridden.",
+    "action": "Overrides should stay possible but be authorised, justified and tracked against outcome (FR-032/033, KPI-21).",
+    "title": "Overrides"
+  },
+  "18_daily_fill_rate": {
+    "what": "Day-by-day fill rate (units sold \u00f7 units demanded) for the 250 most recent campaigns, split by whether they stocked out.",
+    "insight": "Campaigns that stocked out run out early: half of them were empty by day 10, so most of the campaign ran with no stock while media spend continued.",
+    "action": "Demand is front-loaded (the BRD example puts 40% of volume in week 1), so the stock check must hold on the peak days, not just in total. CIAP checks SKU x location x day (DATA-003).",
+    "title": "When stock runs out"
+  },
+  "19_cltv_dependency": {
+    "what": "Predicted CLTV of 6,000 campaign-acquired customers, grouped by the share of their orders that used a discount.",
+    "insight": "Median CLTV is $69 for low-discount-dependency customers vs $29 for highly dependent ones (2.4x).",
+    "action": "Customers acquired through heavy discounts are worth much less. CLTV, not campaign revenue, should be the north-star measure (BRD guiding principle).",
+    "title": "Discount dependency vs CLTV"
+  },
+  "20_first_experience": {
+    "what": "Customers grouped by the stockout rate of the campaign that acquired them: average orders in the next 12 months and churn rate.",
+    "insight": "Customers whose first campaign had under 2% stockouts placed 2.6 orders a year; those from campaigns with over 20% stockouts placed 1.4, and churn rose from 38% to 52%.",
+    "action": "A bad first experience teaches new customers that XYZ promotions are unreliable. Operational feasibility is therefore a customer-value issue, not just an operations issue.",
+    "title": "First experience vs loyalty"
+  },
+  "21_cltv_segment": {
+    "what": "Median predicted CLTV and average orders per customer by segment.",
+    "insight": "Champions are worth $614 each vs $31 for Discount Seekers, who also use discounts on 68% of orders.",
+    "action": "Budget should shift toward segments with high CLTV and genuine response (Potential Loyalists, At-Risk win-back) and away from discount-only buyers.",
+    "title": "CLTV by segment"
+  },
+  "22_ciap_backtest": {
+    "what": "Back-test: every historical campaign was replayed through the CIAP gates using only information available before launch, then compared with what actually happened.",
+    "insight": "Campaigns CIAP would approve succeeded 76% of the time; campaigns it would block succeeded only 37%. Of the campaigns that failed, CIAP would have caught 74% before launch (recall), and 63% of its blocks were correct (precision). Blocked campaigns included $12.01M of losses.",
+    "action": "This is the key validation of the strategy: the gates separate good from bad campaigns using pre-launch data only. Blocked campaigns are not simply rejected; CIAP proposes feasible alternatives (FR-020), so good ideas can still be recovered.",
+    "title": "CIAP back-test"
+  },
+  "00_cleaning": {
+    "what": "Rows affected by each cleaning step.",
+    "insight": "",
+    "action": "",
+    "title": "Cleaning summary"
+  }
+}

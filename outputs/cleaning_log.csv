@@ -1,0 +1,34 @@
+dataset,step,issue,rows_affected,action_taken
+campaigns,1. Trim whitespace,Leading/trailing spaces in text fields,129,Stripped spaces from all text columns
+campaigns,2. Remove duplicates,Identical rows exported twice,37,Dropped exact duplicate rows
+campaigns,2. Remove duplicates,Duplicate campaign_id after exact de-dup,0,None found - campaign_id is a valid primary key
+campaigns,3. Standardise labels,Inconsistent spellings/case in campaign_type,84,"Mapped variants to canonical labels: ['Bundle', 'Clearance', 'Discount', 'Flash Sale', 'Free Delivery', 'Loyalty Reward', 'Seasonal Event']"
+campaigns,3. Standardise labels,Inconsistent spellings/case in target_segment,114,"Mapped variants to canonical labels: ['At-Risk / Lapsed', 'Champions', 'Discount Seekers', 'Loyal Regulars', 'New Prospects', 'Potential Loyalists']"
+campaigns,3. Standardise labels,Inconsistent spellings/case in region_scope,301,"Mapped variants to canonical labels: ['Metro only', 'Nationwide', 'Regional']"
+campaigns,3. Standardise labels,inventory_signoff recorded as Y/N/TRUE/FALSE/yes,90,Converted to Yes/No
+campaigns,3. Standardise labels,logistics_signoff recorded as Y/N/TRUE/FALSE/yes,90,Converted to Yes/No
+campaigns,4. Parse dates,"launch_date in DD/MM/YYYY and 'Mon DD, YYYY' formats",330,Parsed all formats to ISO dates; unparseable left: 0
+campaigns,5. Fix data types,discount_pct written as text like '25%',180,Removed % and converted to a 0-1 fraction
+campaigns,5. Fix data types,"budget written as currency text like '$18,415'",118,"Removed $ and thousands separators, converted to number"
+campaigns,6. Fix invalid values,Negative units_sold (sign typed wrongly; revenue is positive),9,Took absolute value - confirmed against revenue / price
+campaigns,6. Fix invalid values,on_time_delivery_rate above 100% (1.5),6,"Set to missing, then imputed in step 8"
+campaigns,7. Treat outliers,"budget / planned revenue ratio above 5.0 (3xIQR fence 1.25, floor 5) - two extra zeros typed",6,Divided by 100 (ratio returns to the normal range)
+campaigns,7. Treat outliers,Extreme but genuine values in contribution_margin (3xIQR rule),41,"Kept: they are real large campaigns, flagged for robust (median) statistics"
+campaigns,7. Treat outliers,Extreme but genuine values in units_sold (3xIQR rule),30,"Kept: they are real large campaigns, flagged for robust (median) statistics"
+campaigns,7. Treat outliers,Extreme but genuine values in approval_cycle_hours (3xIQR rule),1,"Kept: they are real large campaigns, flagged for robust (median) statistics"
+campaigns,8. Impute missing,media_spend missing,45,Imputed = category median media-to-planned-revenue rate x planned revenue
+campaigns,8. Impute missing,on_time_delivery_rate missing (incl. the invalid 1.5 values),66,Imputed with median on-time rate of campaigns in the same rider-utilisation band
+campaigns,8. Impute missing,csat_score missing (survey not returned),90,Imputed with campaign-type median
+campaigns,8. Impute missing,repeat_rate_90d missing,45,Imputed with target-segment median
+campaigns,8. Impute missing,forecast_team missing,75,"Labelled 'Unknown' (category kept, not guessed)"
+campaigns,9. Consistency check,revenue = units_sold x price x (1 - discount),0,Check passed for all rows
+campaigns,10. Transform,Derived features,1500,"Added 30+ features incl. stock cover, forecast error, ROI, CAC, bands, failure reason and CIAP gate verdict"
+customers,2. Remove duplicates,Customer rows exported twice,90,Dropped exact duplicates
+customers,2. Remove duplicates,Repeated customer_id,0,Kept first record per customer
+customers,3. Standardise labels,city_tier as tier-1 / T1 / tier 2,600,Mapped to Tier 1 / Tier 2 / Tier 3
+customers,6. Fix invalid values,orders_12m = -1 (system default for 'unknown'),25,Recalculated as revenue_12m / avg_order_value
+customers,8. Impute missing,age_band missing (not provided at sign-up),240,"Labelled 'Unknown' - not imputed, to avoid inventing demographics"
+customers,10. Transform,Derived features,6000,"Added churned flag, discount dependency band, value tier and acquisition-campaign experience (joined from campaigns)"
+campaign_daily,2. Remove duplicates,Day rows loaded twice,60,Dropped exact duplicates
+campaign_daily,8. Impute missing,units_sold = 'NA' (feed dropped),72,Recovered exactly from stock movement: previous day stock - today's stock
+campaign_daily,10. Transform,Derived features,3616,"Added lost units, stock-out flag and cumulative forecast / demand / sales"

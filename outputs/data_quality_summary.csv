@@ -1,0 +1,7 @@
+dataset,stage,rows,columns,missing_cells,duplicate_rows
+campaigns,raw,1537,44,318,37
+campaigns,clean,1500,82,345,0
+customers,raw,6090,13,243,90
+customers,clean,6000,20,0,0
+campaign_daily,raw,3676,9,73,60
+campaign_daily,clean,3616,14,0,0
